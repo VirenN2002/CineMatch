@@ -3,6 +3,19 @@ import pickle
 import requests
 import pandas as pd
 
+import os
+import urllib.request
+
+def download_if_not_exists(url, filename):
+    if not os.path.exists(filename):
+        print(f"Downloading {filename} from Google Drive...")
+        urllib.request.urlretrieve(url, filename)
+
+# Download files if not present
+download_if_not_exists("https://drive.google.com/uc?id=1SVFyp11NvnAlFLKObC814UWxB3uedCIl", "similarity.pkl")
+download_if_not_exists("https://drive.google.com/uc?id=1Y82WR67YZvXft0A0nBgX8ijw7O6t5-if", "movie_list.pkl")
+
+
 app = Flask(__name__)
 
 
