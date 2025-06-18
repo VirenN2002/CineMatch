@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recommendations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/image.jpg'); 
+            background-repeat: no-repeat;
+            background-size: cover; 
+            background-position: center center; 
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(51, 51, 51, 0.8); 
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+        .container {
+            max-width: 800px;
+            margin: 90px auto 50px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        .movies-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .item {
+            width: 250px;
+            margin: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .item h2 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .item img {
+            width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .nav-links a {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .nav-links a:hover {
+            background-color: #45a049;
+        }
+        .nav-links a.active {
+            background-color: #333;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .home-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .home-button:hover {
+            background-color: #45a049;
+        }
+        @media (max-width: 600px) {
+            .item {
+                width: calc(100% - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 style="background-color: rgba(51, 51, 51, 0.8); 
+        color: #fff;
+        padding: 20px 0; 
+        margin-bottom: 20px;
+        text-align: center;">CineMatch</h1>
+        <div class="nav-links">
+            <a href="#" onclick="showSection('movies-section')" id="movies-link" class="active">Movies</a>
+        </div>
+    </div>
+    <div class="container">
+        <div id="movies-section" class="section active">
+            <h1>Recommended Movies</h1>
+            <div class="movies-container">
+                {% for movie, image in zip(movies, images) %}
+                <div class="item">
+                    {% if image %}
+                    <img src="https://image.tmdb.org/t/p/w500{{ image }}" alt="{{ movie }} poster">
+                    <h2>{{ movie }}</h2>
+                    {% else %}
+                    <p>No poster available</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            if (sectionId === 'movies-section') {
+                document.getElementById('movies-link').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

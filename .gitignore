@@ -1,0 +1,6 @@
+# .gitignore
+*.pkl
+__pycache__/
+*.pyc
+.env"*.pkl" 
+"__pycache__/" 
